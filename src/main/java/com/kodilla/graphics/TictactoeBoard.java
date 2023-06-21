@@ -1,8 +1,8 @@
-package com.kodilla.Graphics;
+package com.kodilla.graphics;
 
 import java.util.Arrays;
 
-public class Board {
+public class TictactoeBoard {
     private final int sizeX = 3;
     private final int sizeY = 3;
     private String[][] board;
@@ -39,9 +39,7 @@ public class Board {
         for (int i = 0; i < sizeX; i++){
             for (int j = 0; j < sizeY; j++){
                 board[i][j] = field;
-                System.out.print(board[i][j]);
             }
-            System.out.println();
         }
         return board;
     }
@@ -53,7 +51,6 @@ public class Board {
         } else {
             board[x][y] = "|O|";
         }
-        printBoard();
         return board;
     }
 

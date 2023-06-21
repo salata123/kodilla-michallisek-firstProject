@@ -1,9 +1,10 @@
 package com.kodilla;
 
-import com.kodilla.Graphics.Board;
-import com.kodilla.Input.TictactoeInput;
-import com.kodilla.Logic.TictactoeLogic;
+import com.kodilla.graphics.TictactoeBoard;
+import com.kodilla.logic.TictactoeLogic;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Scanner;
 
 @SpringBootApplication
 public class KodillaTictactoeGameApplication {
@@ -11,27 +12,79 @@ public class KodillaTictactoeGameApplication {
     public static void main(String[] args) {
 //        SpringApplication.run(KodillaTictactoeGameApplication.class, args);
         //Initializing the game and players
-        Board board = new Board();
+        TictactoeBoard tictactoeBoard = new TictactoeBoard();
         TictactoeLogic logic = new TictactoeLogic();
         char player1Type = 'X';
         char player2Type = 'O';
-        TictactoeInput tictactoeInput = new TictactoeInput();
-        board.initializeBoard();
-        //Game loop with checking if any player won the game
+        tictactoeBoard.initializeBoard();
+        int gameType;
+        Scanner scanner = new Scanner(System.in);
+        int turnCount = 0;
 
-        while (true) {
-            System.out.println("Player 1 turn");
-            tictactoeInput.playerFieldChoice(board, player1Type);
-            if (logic.winCheckPlayer1(board.getBoard())) {
-                break;
+        //Game type input choice
+        System.out.println("Type '1' to play against other player, '2' to play against AI: ");
+        gameType = scanner.nextInt();
+
+        if(gameType == 1){
+            while (true) {//Game loop player1 vs. player2 with checking if any player won the game
+                System.out.println("Turn " + (turnCount + 1));
+
+                //Player 1 turn
+                if (logic.player1Turn(tictactoeBoard, player1Type)){
+                    turnCount++;
+                    if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
+                        tictactoeBoard.printBoard();
+                        System.out.println("Draw");
+                        break;
+                    }
+                } else {
+                    break;
+                }
+
+                System.out.println("Turn " + (turnCount + 1));
+
+                //Player 2 turn
+                if (logic.player2Turn(tictactoeBoard, player2Type)){
+                    turnCount++;
+                    if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
+                        tictactoeBoard.printBoard();
+                        System.out.println("Draw");
+                        break;
+                    }
+                } else {
+                    break;
+                }
             }
+        } else {         //Game loop player vs. AI with checking if any player won the game
+            while (true) {
+                System.out.println("Turn " + (turnCount + 1));
 
-            System.out.println("Player 2 turn");
-            tictactoeInput.playerFieldChoice(board, player2Type);
-            if (logic.winCheckPlayer2(board.getBoard())) {
-                break;
+                //Player 1 turn
+                if (logic.player1Turn(tictactoeBoard, player1Type)){
+                    turnCount++;
+                    if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
+                        tictactoeBoard.printBoard();
+                        System.out.println("Draw");
+                        break;
+                    }
+                } else {
+                    break;
+                }
+
+                System.out.println("Turn " + (turnCount + 1));
+
+                //AI turn
+                if (logic.aiTurn(tictactoeBoard, player2Type)){
+                    turnCount++;
+                    if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
+                        tictactoeBoard.printBoard();
+                        System.out.println("Draw");
+                        break;
+                    }
+                } else {
+                    break;
+                }
             }
         }
     }
-
 }
