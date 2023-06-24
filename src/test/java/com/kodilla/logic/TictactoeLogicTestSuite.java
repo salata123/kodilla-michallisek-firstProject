@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
 
-public class tictactoeLogicTestSuite {
+public class TictactoeLogicTestSuite {
     @Test
     @DisplayName("Win check for Player1 test")
     void winCheckPlayer1Test() {
@@ -38,9 +38,9 @@ public class tictactoeLogicTestSuite {
         tictactoeBoardDiagonals.updateBoard(1, 1, playerType);
         tictactoeBoardDiagonals.updateBoard(2, 2, playerType);
 
-        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer1(tictactoeBoardRows.getBoard()));
-        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer1(tictactoeBoardColumns.getBoard()));
-        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer1(tictactoeBoardDiagonals.getBoard()));
+        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer1(tictactoeBoardRows));
+        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer1(tictactoeBoardColumns));
+        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer1(tictactoeBoardDiagonals));
     }
 
     @Test
@@ -72,9 +72,9 @@ public class tictactoeLogicTestSuite {
         tictactoeBoardDiagonals.updateBoard(1, 1, playerType);
         tictactoeBoardDiagonals.updateBoard(2, 2, playerType);
 
-        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer2(tictactoeBoardRows.getBoard()));
-        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer2(tictactoeBoardColumns.getBoard()));
-        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer2(tictactoeBoardDiagonals.getBoard()));
+        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer2(tictactoeBoardRows));
+        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer2(tictactoeBoardColumns));
+        assertEquals(expectedResult, tictactoeLogic.winCheckPlayer2(tictactoeBoardDiagonals));
     }
 
     @Test

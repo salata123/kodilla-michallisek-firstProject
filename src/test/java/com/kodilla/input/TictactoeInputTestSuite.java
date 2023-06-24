@@ -1,12 +1,11 @@
 package com.kodilla.input;
 
-import com.kodilla.graphics.TictactoeBoard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class tictactoeInputTestSuite {
+public class TictactoeInputTestSuite {
     @Test
     @DisplayName("Column selection test")
     void columnSelectionTest() {

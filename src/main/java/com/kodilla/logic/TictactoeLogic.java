@@ -6,52 +6,52 @@ import com.kodilla.input.TictactoeInput;
 
 public class TictactoeLogic {
     //Checking the board to see if player 1 won
-    public boolean winCheckPlayer1(String[][] board){
+    public boolean winCheckPlayer1(TictactoeBoard board){
         // Check rows
         for (int i = 0; i < 3; i++) {
-            if (board[i][0].equals("|X|") && board[i][1].equals("|X|") && board[i][2].equals("|X|")) {
+            if (board.getBoard()[i][0].equals("|X|") && board.getBoard()[i][1].equals("|X|") && board.getBoard()[i][2].equals("|X|")) {
                 return true;
             }
         }
 
         // Check columns
         for (int j = 0; j < 3; j++) {
-            if (board[0][j].equals("|X|") && board[1][j].equals("|X|") && board[2][j].equals("|X|")) {
+            if (board.getBoard()[0][j].equals("|X|") && board.getBoard()[1][j].equals("|X|") && board.getBoard()[2][j].equals("|X|")) {
                 return true;
             }
         }
 
         // Check diagonals
-        if (board[0][0].equals("|X|") && board[1][1].equals("|X|") && board[2][2].equals("|X|")) {
+        if (board.getBoard()[0][0].equals("|X|") && board.getBoard()[1][1].equals("|X|") && board.getBoard()[2][2].equals("|X|")) {
             return true;
         }
-        if (board[0][2].equals("|X|") && board[1][1].equals("|X|") && board[2][0].equals("|X|")) {
+        if (board.getBoard()[0][2].equals("|X|") && board.getBoard()[1][1].equals("|X|") && board.getBoard()[2][0].equals("|X|")) {
             return true;
         }
         return false;
     }
 
     //Checking the board to see if player 2 won
-    public boolean winCheckPlayer2(String[][] board){
+    public boolean winCheckPlayer2(TictactoeBoard board){
         // Check rows
         for (int i = 0; i < 3; i++) {
-            if (board[i][0].equals("|O|") && board[i][1].equals("|O|") && board[i][2].equals("|O|")) {
+            if (board.getBoard()[i][0].equals("|O|") && board.getBoard()[i][1].equals("|O|") && board.getBoard()[i][2].equals("|O|")) {
                 return true;
             }
         }
 
         // Check columns
         for (int j = 0; j < 3; j++) {
-            if (board[0][j].equals("|O|") && board[1][j].equals("|O|") && board[2][j].equals("|O|")) {
+            if (board.getBoard()[0][j].equals("|O|") && board.getBoard()[1][j].equals("|O|") && board.getBoard()[2][j].equals("|O|")) {
                 return true;
             }
         }
 
         // Check diagonals
-        if (board[0][0].equals("|O|") && board[1][1].equals("|O|") && board[2][2].equals("|O|")) {
+        if (board.getBoard()[0][0].equals("|O|") && board.getBoard()[1][1].equals("|O|") && board.getBoard()[2][2].equals("|O|")) {
             return true;
         }
-        if (board[0][2].equals("|O|") && board[1][1].equals("|O|") && board[2][0].equals("|O|")) {
+        if (board.getBoard()[0][2].equals("|O|") && board.getBoard()[1][1].equals("|O|") && board.getBoard()[2][0].equals("|O|")) {
             return true;
         }
         return false;
@@ -80,7 +80,7 @@ public class TictactoeLogic {
         System.out.println("Player 1 turn");
         tictactoeBoard.printBoard();
         tictactoeInput.playerFieldChoice(tictactoeBoard, player1Type);
-        if (winCheckPlayer1(tictactoeBoard.getBoard())) {
+        if (winCheckPlayer1(tictactoeBoard)) {
             tictactoeBoard.printBoard();
             System.out.println("Player 1 wins!");
             return false;
@@ -94,7 +94,7 @@ public class TictactoeLogic {
         System.out.println("Player 2 turn");
         tictactoeBoard.printBoard();
         tictactoeInput.playerFieldChoice(tictactoeBoard, player2Type);
-        if (winCheckPlayer2(tictactoeBoard.getBoard())) {
+        if (winCheckPlayer2(tictactoeBoard)) {
             tictactoeBoard.printBoard();
             System.out.println("Player 2 wins!");
             return false;
@@ -108,7 +108,7 @@ public class TictactoeLogic {
         System.out.println("AI turn");
         tictactoeBoard.printBoard();
         tictactoeAI.aiFieldSelection(tictactoeBoard, player2Type);
-        if (winCheckPlayer2(tictactoeBoard.getBoard())) {
+        if (winCheckPlayer2(tictactoeBoard)) {
             tictactoeBoard.printBoard();
             System.out.println("AI wins!");
             return false;

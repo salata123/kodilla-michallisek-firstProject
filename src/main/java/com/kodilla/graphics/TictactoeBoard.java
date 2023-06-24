@@ -3,8 +3,12 @@ package com.kodilla.graphics;
 import java.util.Arrays;
 
 public class TictactoeBoard {
-    private final int sizeX = 3;
-    private final int sizeY = 3;
+    private int sizeX = 3;
+    private int sizeY = 3;
+
+    private int sizeX2 = 10;
+
+    private int SizeY2 = 10;
     private String[][] board;
     private final char choiceEmpty = ' ';
     private final char choiceX = 'X';

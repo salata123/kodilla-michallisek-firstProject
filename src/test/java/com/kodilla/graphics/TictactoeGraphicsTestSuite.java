@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class tictactoeGraphicsTestSuite {
+public class TictactoeGraphicsTestSuite {
     @Test
     @DisplayName("Empty board test")
     void emptyBoardTest() {
