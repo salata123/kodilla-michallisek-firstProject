@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class TictactoeInput {
     TictactoeLogic logic = new TictactoeLogic();
     Scanner scanner = new Scanner(System.in);
+    int gameSize = 0;
     int x;
     int y;
 
@@ -25,6 +26,26 @@ public class TictactoeInput {
                 }
             }
         }
+    }
+
+    public int gameSizeSelection(TictactoeBoard tictactoeBoard){
+        boolean validInput = false;
+        while (!validInput) {
+            if (scanner.hasNextInt()) {
+                gameSize = scanner.nextInt();
+                if (gameSize == 1) {
+                    tictactoeBoard.initializeBoard();
+                    validInput = true;
+                }else if (gameSize == 2) {
+                    tictactoeBoard.initializeBoard2();
+                    validInput = true;
+                } else {
+                    scanner.next();
+                    System.out.println("Invalid input! Please enter a number 1 or 2");
+                }
+            }
+        }
+        return gameSize;
     }
     //Input row selection with input validation
     public void rowSelection(TictactoeBoard tictactoeBoard){

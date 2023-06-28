@@ -57,6 +57,77 @@ public class TictactoeLogic {
         return false;
     }
 
+    public boolean winCheckPlayer1Columns(TictactoeBoard board, int gameSize){
+        int count = 0;
+        int requiredScore = 0;
+        if (gameSize == 1){
+            requiredScore = 3;
+        } else if (gameSize == 2){
+            requiredScore = 5;
+        }
+        //Check columns
+        for(int i = 0; i < board.getSizeX(); i++){
+            count = 0;
+            for(int j = 0; j < board.getSizeY(); j++){
+                if(board.getBoard()[i][j] == "|X|"){
+                    count++;
+                } else {
+                    count = 0;
+                }
+            }
+        }
+        return count == requiredScore;
+    }
+
+    public boolean winCheckPlayer1Rows(TictactoeBoard board, int gameSize){
+        int count = 0;
+        int requiredScore = 0;
+        if (gameSize == 1){
+            requiredScore = 3;
+        } else if (gameSize == 2){
+            requiredScore = 5;
+        }
+        //Check columns
+        for(int i = 0; i < board.getSizeY(); i++){
+            count = 0;
+            for(int j = 0; j < board.getSizeX(); j++){
+                if(board.getBoard()[i][j] == "|X|"){
+                    count++;
+                } else {
+                    count = 0;
+                }
+            }
+        }
+        return count == requiredScore;
+    }
+
+    public boolean winCheckPlayer1Diagonals(TictactoeBoard board, int gameSize){
+        int count = 0;
+        int requiredScore = 0;
+        if (gameSize == 1){
+            requiredScore = 3;
+        } else if (gameSize == 2){
+            requiredScore = 5;
+        }
+        for (int i = 0; i <= board.getSizeX() - requiredScore; i++) {
+            count = 0;
+            for (int j = 0; j < board.getSizeY() - requiredScore + 1; j++) {
+                for (int k = 0; k < requiredScore; k++) {
+                    if (board.getBoard()[i + k][j + k].equals("|X|")) {
+                        count++;
+                    } else {
+                        count = 0;
+                        break;
+                    }
+                }
+                if (count == requiredScore) {
+                    return true;
+                }
+            }
+        }
+        return count == requiredScore;
+    }
+
     //Checking if a field wanted by a player is empty
     public boolean isFieldEmpty(int x, int y, TictactoeBoard tictactoeBoard){
         if (tictactoeBoard.getBoard()[x][y].equals("|X|") || tictactoeBoard.getBoard()[x][y].equals("|O|")){
@@ -75,12 +146,12 @@ public class TictactoeLogic {
         }
     }
 
-    public boolean player1Turn (TictactoeBoard tictactoeBoard, char player1Type){
+    public boolean player1Turn (TictactoeBoard tictactoeBoard, char player1Type, int gameSize){
         TictactoeInput tictactoeInput = new TictactoeInput();
         System.out.println("Player 1 turn");
         tictactoeBoard.printBoard();
         tictactoeInput.playerFieldChoice(tictactoeBoard, player1Type);
-        if (winCheckPlayer1(tictactoeBoard)) {
+        if (winCheckPlayer1Diagonals(tictactoeBoard, gameSize)) {
             tictactoeBoard.printBoard();
             System.out.println("Player 1 wins!");
             return false;

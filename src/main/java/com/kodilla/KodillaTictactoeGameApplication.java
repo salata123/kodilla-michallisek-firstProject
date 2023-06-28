@@ -13,6 +13,7 @@ public class KodillaTictactoeGameApplication {
     public static void main(String[] args) {
 //        SpringApplication.run(KodillaTictactoeGameApplication.class, args);
         TictactoeGameLoop tictactoeGameLoop = new TictactoeGameLoop();
-        tictactoeGameLoop.run();
+        TictactoeBoard tictactoeBoard = new TictactoeBoard();
+        tictactoeGameLoop.run(tictactoeBoard);
     }
 }

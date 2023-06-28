@@ -5,10 +5,9 @@ import java.util.Arrays;
 public class TictactoeBoard {
     private int sizeX = 3;
     private int sizeY = 3;
-
+    private int gameType = 1;
     private int sizeX2 = 10;
-
-    private int SizeY2 = 10;
+    private int sizeY2 = 10;
     private String[][] board;
     private final char choiceEmpty = ' ';
     private final char choiceX = 'X';
@@ -42,6 +41,18 @@ public class TictactoeBoard {
 
         for (int i = 0; i < sizeX; i++){
             for (int j = 0; j < sizeY; j++){
+                board[i][j] = field;
+            }
+        }
+        return board;
+    }
+
+    public String[][] initializeBoard2(){
+        System.out.println("Welcome to the TicTacToe game");
+        board = new String[sizeX2][sizeY2];
+
+        for (int i = 0; i < sizeX2; i++){
+            for (int j = 0; j < sizeY2; j++){
                 board[i][j] = field;
             }
         }

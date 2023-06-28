@@ -1,21 +1,27 @@
 package com.kodilla.logic;
 
 import com.kodilla.graphics.TictactoeBoard;
+import com.kodilla.input.TictactoeInput;
 
 import java.util.Scanner;
 
 public class TictactoeGameLoop {
     //Initializing the game and players
-    TictactoeBoard tictactoeBoard = new TictactoeBoard();
     TictactoeLogic logic = new TictactoeLogic();
+    TictactoeInput tictactoeInput = new TictactoeInput();
     char player1Type = 'X';
     char player2Type = 'O';
     int gameType;
+    int gameSize;
     Scanner scanner = new Scanner(System.in);
     int turnCount = 0;
-    
-    public void run(){
-        tictactoeBoard.initializeBoard();
+
+
+
+    public void run(TictactoeBoard tictactoeBoard){
+        System.out.printf("Type '1' to create 3x3 board, '2' to create 10x10 board: ");
+        gameSize = tictactoeInput.gameSizeSelection(tictactoeBoard);
+
         //Game type input choice
         System.out.println("Type '1' to play against other player, '2' to play against AI: ");
         gameType = scanner.nextInt();
@@ -25,7 +31,7 @@ public class TictactoeGameLoop {
                 System.out.println("Turn " + (turnCount + 1));
 
                 //Player 1 turn
-                if (logic.player1Turn(tictactoeBoard, player1Type)){
+                if (logic.player1Turn(tictactoeBoard, player1Type, gameSize)){
                     turnCount++;
                     if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
                         tictactoeBoard.printBoard();
@@ -55,7 +61,7 @@ public class TictactoeGameLoop {
                 System.out.println("Turn " + (turnCount + 1));
 
                 //Player 1 turn
-                if (logic.player1Turn(tictactoeBoard, player1Type)){
+                if (logic.player1Turn(tictactoeBoard, player1Type, gameSize)){
                     turnCount++;
                     if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
                         tictactoeBoard.printBoard();
