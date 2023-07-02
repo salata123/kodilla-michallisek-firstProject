@@ -1,29 +1,55 @@
 package com.kodilla.input;
 
 import com.kodilla.graphics.TictactoeBoard;
+import com.kodilla.logic.TictactoeGameLoop;
 import com.kodilla.logic.TictactoeLogic;
+import com.kodilla.logic.TictactoePlayer;
+import com.kodilla.logic.TictactoePlayerQueue;
 
 import java.util.Scanner;
 
 public class TictactoeInput {
-    TictactoeLogic logic = new TictactoeLogic();
-    Scanner scanner = new Scanner(System.in);
-    int gameSize = 0;
-    int x;
-    int y;
+    private TictactoeLogic logic = new TictactoeLogic();
+    private Scanner scanner = new Scanner(System.in);
+    private int gameSize = 0;
+    private int x;
+    private int y;
+    private int playerIdCounter = 1;
 
-    //Input column selection with input validation
-    public void columnSelection(TictactoeBoard tictactoeBoard){
+
+    public void playersInitialization(TictactoeGameLoop gameLoop, TictactoePlayerQueue playerQueue){
+        System.out.println("Please, provide name for Player 1: ");
+        String playerName = scanner.next();
+        TictactoePlayer player1 = new TictactoePlayer(playerIdCounter, playerName, gameLoop.getPlayer1Type(), gameLoop.getPlayer1Score(), gameLoop.getPlayer1Lives());
+        playerQueue.addPlayer(player1);
+        playerIdCounter++;
+
+        if(gameLoop.getGameType() == 1){
+            System.out.println("Please, provide name for Player 2: ");
+            playerName = scanner.next();
+            TictactoePlayer player2 = new TictactoePlayer(playerIdCounter, playerName, gameLoop.getPlayer2Type(), gameLoop.getPlayer2Score(), gameLoop.getPlayer2Lives());
+            playerQueue.addPlayer(player2);
+            playerIdCounter++;
+        } else {
+            TictactoePlayer player2 = new TictactoePlayer(0, "AI", gameLoop.getPlayer2Type(), gameLoop.getPlayer2Score(), gameLoop.getPlayer2Lives());
+            playerQueue.addPlayer(player2);
+        }
+    }
+
+
+
+
+    //Selection with input validation
+    public void selection(TictactoeBoard tictactoeBoard){
         boolean validInput = false;
         while (!validInput) {
             if (scanner.hasNextInt()) {
                 x = scanner.nextInt() - 1;
-                if (x >= 0 && x < tictactoeBoard.getSizeX()) {
+                y = scanner.nextInt() - 1;
+                if (x >= 0 && x < tictactoeBoard.getSizeX() && y >= 0 && y < tictactoeBoard.getSizeX()) {
                     validInput = true;
-                } else {
-                    scanner.next();
+                } else
                     System.out.println("Invalid input! Please enter a number between 1 and " + tictactoeBoard.getSizeX());
-                }
             }
         }
     }
@@ -34,10 +60,14 @@ public class TictactoeInput {
             if (scanner.hasNextInt()) {
                 gameSize = scanner.nextInt();
                 if (gameSize == 1) {
+                    tictactoeBoard.setSizeX(3);
+                    tictactoeBoard.setSizeY(3);
                     tictactoeBoard.initializeBoard();
                     validInput = true;
                 }else if (gameSize == 2) {
-                    tictactoeBoard.initializeBoard2();
+                    tictactoeBoard.setSizeX(10);
+                    tictactoeBoard.setSizeY(10);
+                    tictactoeBoard.initializeBoard();
                     validInput = true;
                 } else {
                     scanner.next();
@@ -47,30 +77,12 @@ public class TictactoeInput {
         }
         return gameSize;
     }
-    //Input row selection with input validation
-    public void rowSelection(TictactoeBoard tictactoeBoard){
-        boolean validInput2 = false;
-        while (!validInput2) {
-            if (scanner.hasNextInt()) {
-                y = scanner.nextInt() - 1;
-                if (y >= 0 && y < tictactoeBoard.getSizeX()) {
-                    validInput2 = true;
-                } else {
-                    scanner.next();
-                    System.out.println("Invalid input! Please enter a number between 1 and " + tictactoeBoard.getSizeX());
-                }
-            }
-        }
-    }
 
     //Updating the board
-    public void playerFieldChoice (TictactoeBoard tictactoeBoard, char type) {
+    public void playerFieldChoice (TictactoeBoard tictactoeBoard, String type) {
         while (true) {
-            System.out.println("Select a column: ");
-            columnSelection(tictactoeBoard);
-
-            System.out.println("Select a row: ");
-            rowSelection(tictactoeBoard);
+            System.out.println("Select a column and a row: ");
+            selection(tictactoeBoard);
 
             //Checking if a field wanted by a player is empty
             if (logic.isFieldEmpty(x, y, tictactoeBoard)) {

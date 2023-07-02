@@ -28,7 +28,7 @@ public class TictactoeGraphicsTestSuite {
 
         int x = 0;
         int y = 0;
-        char type = 'X';
+        String type = "|X|";
 
         String expectedField = "|X|";
         tictactoeBoard.updateBoard(x, y, type);
@@ -43,7 +43,7 @@ public class TictactoeGraphicsTestSuite {
 
         int x = 0;
         int y = 0;
-        char type = 'O';
+        String type = "|O|";
 
         String expectedField = "|O|";
         tictactoeBoard.updateBoard(x, y, type);

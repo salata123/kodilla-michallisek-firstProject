@@ -6,8 +6,6 @@ public class TictactoeBoard {
     private int sizeX = 3;
     private int sizeY = 3;
     private int gameType = 1;
-    private int sizeX2 = 10;
-    private int sizeY2 = 10;
     private String[][] board;
     private final char choiceEmpty = ' ';
     private final char choiceX = 'X';
@@ -24,6 +22,14 @@ public class TictactoeBoard {
             }
             System.out.println();
         }
+    }
+
+    public void setSizeX(int sizeX) {
+        this.sizeX = sizeX;
+    }
+
+    public void setSizeY(int sizeY) {
+        this.sizeY = sizeY;
     }
 
     public int getSizeX() {
@@ -47,25 +53,9 @@ public class TictactoeBoard {
         return board;
     }
 
-    public String[][] initializeBoard2(){
-        System.out.println("Welcome to the TicTacToe game");
-        board = new String[sizeX2][sizeY2];
-
-        for (int i = 0; i < sizeX2; i++){
-            for (int j = 0; j < sizeY2; j++){
-                board[i][j] = field;
-            }
-        }
-        return board;
-    }
-
     //Board updating method after player input
-    public String[][] updateBoard(int x, int y, char type){
-        if (type == 'X'){
-            board[x][y] = "|X|";
-        } else {
-            board[x][y] = "|O|";
-        }
+    public String[][] updateBoard(int x, int y, String type){
+        board[x][y] = type;
         return board;
     }
 

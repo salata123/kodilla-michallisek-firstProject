@@ -8,10 +8,9 @@ import java.util.Random;
 public class TictactoeAI {
     private int x;
     private int y;
-    Random random = new Random();
-    TictactoeLogic logic = new TictactoeLogic();
+    private Random random = new Random();
 
-    public void aiFieldSelection(TictactoeBoard tictactoeBoard, char type){
+    public void aiFieldSelection(TictactoeBoard tictactoeBoard, String type, TictactoeLogic logic){
         while (true) {
             x = random.nextInt(tictactoeBoard.getSizeX());
             System.out.println("AI column choice: " + (x + 1));
