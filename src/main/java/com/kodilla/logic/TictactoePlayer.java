@@ -1,7 +1,6 @@
 package com.kodilla.logic;
 
 import java.util.Objects;
-import java.util.Queue;
 
 public class TictactoePlayer {
     private int playerID;

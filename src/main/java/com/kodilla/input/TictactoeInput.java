@@ -14,9 +14,28 @@ public class TictactoeInput {
     private int gameSize = 0;
     private int x;
     private int y;
-    private int playerIdCounter = 1;
+    private int playerIdCounter = 0;
 
+    public int getGameSize() {
+        return gameSize;
+    }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getPlayerIdCounter() {
+        return playerIdCounter;
+    }
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    //Player input for creating player objects with names
     public void playersInitialization(TictactoeGameLoop gameLoop, TictactoePlayerQueue playerQueue){
         System.out.println("Please, provide name for Player 1: ");
         String playerName = scanner.next();
@@ -31,15 +50,13 @@ public class TictactoeInput {
             playerQueue.addPlayer(player2);
             playerIdCounter++;
         } else {
-            TictactoePlayer player2 = new TictactoePlayer(0, "AI", gameLoop.getPlayer2Type(), gameLoop.getPlayer2Score(), gameLoop.getPlayer2Lives());
+            TictactoePlayer player2 = new TictactoePlayer(playerIdCounter, "AI", gameLoop.getPlayer2Type(), gameLoop.getPlayer2Score(), gameLoop.getPlayer2Lives());
             playerQueue.addPlayer(player2);
+            playerIdCounter++;
         }
     }
 
-
-
-
-    //Selection with input validation
+    //Selection of a field on the board with an input validation
     public void selection(TictactoeBoard tictactoeBoard){
         boolean validInput = false;
         while (!validInput) {
@@ -54,6 +71,7 @@ public class TictactoeInput {
         }
     }
 
+    //Selecting game size X by Y
     public int gameSizeSelection(TictactoeBoard tictactoeBoard){
         boolean validInput = false;
         while (!validInput) {
@@ -78,7 +96,7 @@ public class TictactoeInput {
         return gameSize;
     }
 
-    //Updating the board
+    //Updating the board with player board coordinate input
     public void playerFieldChoice (TictactoeBoard tictactoeBoard, String type) {
         while (true) {
             System.out.println("Select a column and a row: ");
@@ -93,5 +111,4 @@ public class TictactoeInput {
         }
         tictactoeBoard.updateBoard(x, y, type);
     }
-
 }

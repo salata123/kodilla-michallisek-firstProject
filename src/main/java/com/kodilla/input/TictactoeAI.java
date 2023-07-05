@@ -10,6 +10,7 @@ public class TictactoeAI {
     private int y;
     private Random random = new Random();
 
+    //Random AI field selection
     public void aiFieldSelection(TictactoeBoard tictactoeBoard, String type, TictactoeLogic logic){
         while (true) {
             x = random.nextInt(tictactoeBoard.getSizeX());

@@ -35,6 +35,7 @@ public class TictactoeGraphicsTestSuite {
 
         assertEquals(expectedField, tictactoeBoard.getBoard()[0][0]);
     }
+
     @Test
     @DisplayName("Updating board with 'O' test")
     void emptyBoardUpdateWithO() {

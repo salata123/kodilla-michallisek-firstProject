@@ -6,7 +6,8 @@ import com.kodilla.input.TictactoeInput;
 
 public class TictactoeLogic {
 
-    public boolean winCheckColumns(TictactoeBoard board, int gameSize, TictactoePlayerQueue playerQueue){
+    //Checking a win for columns
+    public boolean winCheckColumns(TictactoeBoard board, int gameSize, TictactoePlayerQueue playerQueue, int playerID){
         int count = 0;
         int requiredScore = 0;
         if (gameSize == 1){
@@ -18,7 +19,7 @@ public class TictactoeLogic {
         for (int j = 0; j < board.getSizeY(); j++) {
             count = 0;
             for (int i = 0; i < board.getSizeX(); i++) {
-                if (board.getBoard()[i][j].equals(playerQueue.getCurrentPlayerSymbol())) {
+                if (board.getBoard()[i][j].equals(playerQueue.getCurrentPlayerSymbol(playerID))) {
                     count++;
                     if (count == requiredScore) {
                         return true;
@@ -31,7 +32,8 @@ public class TictactoeLogic {
         return false;
     }
 
-    public boolean winCheckRows(TictactoeBoard board, int gameSize, TictactoePlayerQueue playerQueue){
+    //Checking a win for rows
+    public boolean winCheckRows(TictactoeBoard board, int gameSize, TictactoePlayerQueue playerQueue, int playerID){
         int count = 0;
         int requiredScore = 0;
         if (gameSize == 1){
@@ -43,7 +45,7 @@ public class TictactoeLogic {
         for (int i = 0; i < board.getSizeX(); i++) {
             count = 0;
             for (int j = 0; j < board.getSizeY(); j++) {
-                if (board.getBoard()[i][j].equals(playerQueue.getCurrentPlayerSymbol())) {
+                if (board.getBoard()[i][j].equals(playerQueue.getCurrentPlayerSymbol(playerID))) {
                     count++;
                     if (count == requiredScore) {
                         return true;
@@ -56,7 +58,8 @@ public class TictactoeLogic {
         return false;
     }
 
-    public boolean winCheckDiagonals(TictactoeBoard board, int gameSize, TictactoePlayerQueue playerQueue){
+    //Checking a win for diagonals
+    public boolean winCheckDiagonals(TictactoeBoard board, int gameSize, TictactoePlayerQueue playerQueue, int playerID){
         int count = 0;
         int requiredScore = 0;
         if (gameSize == 1){
@@ -68,7 +71,7 @@ public class TictactoeLogic {
             count = 0;
             for (int j = 0; j < board.getSizeY() - requiredScore + 1; j++) {
                 for (int k = 0; k < requiredScore; k++) {
-                    if (board.getBoard()[i + k][j + k].equals(playerQueue.getCurrentPlayerSymbol())) {
+                    if (board.getBoard()[i + k][j + k].equals(playerQueue.getCurrentPlayerSymbol(playerID))) {
                         count++;
                     } else {
                         count = 0;
@@ -83,9 +86,10 @@ public class TictactoeLogic {
         return count == requiredScore;
     }
 
-    public boolean winCheckAll(TictactoeBoard board, int gameSize, TictactoePlayerQueue playerQueue){
-        System.out.println("Checking win for " + playerQueue.getCurrentPlayerName() + " " + playerQueue.getCurrentPlayerSymbol());
-        return winCheckColumns(board, gameSize, playerQueue) || winCheckRows(board, gameSize, playerQueue) || winCheckDiagonals(board, gameSize, playerQueue);
+    //Merged win checks
+    public boolean winCheckAll(TictactoeBoard board, int gameSize, TictactoePlayerQueue playerQueue, int playerID){
+        System.out.println("Checking win for " + playerQueue.getCurrentPlayerName(playerID) + " " + playerQueue.getCurrentPlayerSymbol(playerID));
+        return winCheckColumns(board, gameSize, playerQueue, playerID) || winCheckRows(board, gameSize, playerQueue, playerID) || winCheckDiagonals(board, gameSize, playerQueue, playerID);
     }
 
     //Checking if a field wanted by a player is empty
@@ -98,6 +102,7 @@ public class TictactoeLogic {
         }
     }
 
+    //Checking if a field wanted by a AI is empty
     public boolean isFieldEmptyAI(int x, int y, TictactoeBoard tictactoeBoard){
         if (tictactoeBoard.getBoard()[x][y].equals("|X|") || tictactoeBoard.getBoard()[x][y].equals("|O|")){
             return false;
@@ -106,54 +111,31 @@ public class TictactoeLogic {
         }
     }
 
-    public boolean playerTurn(TictactoeBoard tictactoeBoard, int gameSize, TictactoeInput tictactoeInput, TictactoePlayerQueue playerQueue){
-        System.out.println(playerQueue.getCurrentPlayerName() + "'s with symbol " + playerQueue.getCurrentPlayerSymbol() + " turn");
+    public boolean playerTurn(TictactoeBoard tictactoeBoard, int gameSize, TictactoeInput tictactoeInput, TictactoePlayerQueue playerQueue, int playerID, int gameType){
+        System.out.println(playerQueue.getCurrentPlayerName(playerID) + "'s with symbol " + playerQueue.getCurrentPlayerSymbol(playerID) + " turn");
         tictactoeBoard.printBoard();
 
-        tictactoeInput.playerFieldChoice(tictactoeBoard, playerQueue.getCurrentPlayerSymbol());
+        if(gameType == 2 && playerID == 1){
+            TictactoeAI tictactoeAI = new TictactoeAI();
+            tictactoeAI.aiFieldSelection(tictactoeBoard, playerQueue.getCurrentPlayerSymbol(playerID), this);
+        } else {
+            tictactoeInput.playerFieldChoice(tictactoeBoard, playerQueue.getCurrentPlayerSymbol(playerID));
+        }
 
-        if (winCheckAll(tictactoeBoard, gameSize, playerQueue)) {
+        //Checking if player won
+        if (winCheckAll(tictactoeBoard, gameSize, playerQueue, playerID)) {
             tictactoeBoard.printBoard();
-            System.out.println(playerQueue.getCurrentPlayerName() + " wins!");
-
-            playerQueue.getCurrentPlayer().add1Score();
-            playerQueue.addPlayerToWaitingList(playerQueue.getCurrentPlayer());
-            playerQueue.removeCurrentPlayer();
-            playerQueue.getCurrentPlayer().remove1Live();
-            System.out.println("Player List: " + playerQueue.getPlayerQueue());
-            playerQueue.getPlayersFromWaitingList();
+            System.out.println(playerQueue.getCurrentPlayerName(playerID) + " wins!");
+            playerQueue.getCurrentPlayer(playerID).add1Score();
+            for(int i = 0; i < playerQueue.getPlayerQueue().size(); i++){
+                if (!(playerQueue.getCurrentPlayer(i).equals(playerQueue.getCurrentPlayer(playerID)))){
+                    playerQueue.getCurrentPlayer(i).remove1Live();
+                }
+            }
             System.out.println("Player List: " + playerQueue.getPlayerQueue());
             playerQueue.getAllPlayersLives();
             return false;
         } else {
-            playerQueue.addPlayerToWaitingList(playerQueue.getCurrentPlayer());
-            playerQueue.removeCurrentPlayer();
-            if (playerQueue.getPlayerQueue().isEmpty()){
-                playerQueue.getPlayersFromWaitingList();
-            }
-            return true;
-        }
-
-    }
-
-    public boolean aiTurn(TictactoeBoard tictactoeBoard, int gameSize, TictactoePlayerQueue playerQueue){
-        TictactoeAI tictactoeAI = new TictactoeAI();
-        System.out.println(playerQueue.getCurrentPlayerName() + "'s with symbol " + playerQueue.getCurrentPlayerSymbol() + " turn");
-        tictactoeBoard.printBoard();
-
-        tictactoeAI.aiFieldSelection(tictactoeBoard, playerQueue.getCurrentPlayerSymbol(), this);
-
-        if (winCheckAll(tictactoeBoard, gameSize, playerQueue)) {
-            tictactoeBoard.printBoard();
-            System.out.println(playerQueue.getCurrentPlayerName() + " wins!");
-
-            return false;
-        } else {
-            playerQueue.addPlayerToWaitingList(playerQueue.getCurrentPlayer());
-            playerQueue.removeCurrentPlayer();
-            if(playerQueue.getPlayerQueue().isEmpty()){
-                playerQueue.getPlayersFromWaitingList();
-            }
             return true;
         }
     }

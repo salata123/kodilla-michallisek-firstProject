@@ -1,40 +1,63 @@
 package com.kodilla.logic;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
 
 public class TictactoePlayerQueue {
-    private Queue<TictactoePlayer> playerQueue = new LinkedList<>();
-    private Queue<TictactoePlayer> waitingList = new LinkedList<>();
+    private ArrayList<TictactoePlayer> playerQueue = new ArrayList<>();
+    private ArrayList<TictactoePlayer> waitingList = new ArrayList<>();
 
     public void addPlayer (TictactoePlayer player){
         playerQueue.add(player);
     }
-    public TictactoePlayer getCurrentPlayer (){
-        return playerQueue.peek();
-    }
-    public String getCurrentPlayerName (){
-        return playerQueue.peek().getPlayerName();
-    }
-    public void removeCurrentPlayer(){
-        playerQueue.remove();
+
+    public TictactoePlayer getCurrentPlayer (int index){
+        for (TictactoePlayer player : playerQueue) {
+            if (player.getPlayerID() == index) {
+                return player;
+            }
+        }
+        System.out.println("Cannot find player with this ID.");
+        return null;
     }
 
-    public String getCurrentPlayerSymbol(){
-        return playerQueue.peek().getPlayerSymbol();
+    public String getCurrentPlayerName (int index){
+        for (TictactoePlayer player : playerQueue) {
+            if (player.getPlayerID() == index) {
+                return player.getPlayerName();
+            }
+        }
+        System.out.println("Cannot find player with this ID.");
+        return null;
     }
 
-    public Queue<TictactoePlayer> getPlayerQueue() {
+    public void removeCurrentPlayer(int index){
+        playerQueue.remove(index);
+    }
+
+    public String getCurrentPlayerSymbol(int index){
+        for (TictactoePlayer player : playerQueue) {
+            if (player.getPlayerID() == index) {
+                return player.getPlayerSymbol();
+            }
+        }
+        System.out.println("Cannot find player with this ID.");
+        return null;
+    }
+
+    public ArrayList<TictactoePlayer> getPlayerQueue() {
         return playerQueue;
     }
 
-    public void addPlayerToWaitingList(TictactoePlayer player){
-        waitingList.add(player);
+    public void addCurrentPlayerToWaitingList(int index){
+        for (TictactoePlayer player : playerQueue) {
+            if (player.getPlayerID() == index) {
+                waitingList.add(player);
+            }
+        }
+        System.out.println("Cannot find player with this ID.");
     }
     public void getPlayersFromWaitingList(){
-        while (!waitingList.isEmpty()) {
-            playerQueue.add(waitingList.poll());
-        }
+        playerQueue.addAll(waitingList);
     }
 
     public void getAllPlayersLives(){
@@ -58,7 +81,13 @@ public class TictactoePlayerQueue {
         }
     }
 
-    public int getCurrentPlayerLives(){
-        return playerQueue.peek().getPlayerLives();
+    public int getCurrentPlayerLives(int index){
+        for (TictactoePlayer player : playerQueue) {
+            if (player.getPlayerID() == index) {
+                return player.getPlayerLives();
+            }
+        }
+        System.out.println("Cannot find player with this ID.");
+        return 0;
     }
 }

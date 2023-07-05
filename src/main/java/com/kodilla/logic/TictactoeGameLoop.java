@@ -3,9 +3,7 @@ package com.kodilla.logic;
 import com.kodilla.graphics.TictactoeBoard;
 import com.kodilla.input.TictactoeInput;
 
-import java.util.List;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class TictactoeGameLoop {
     //Initializing the game and players
@@ -53,11 +51,13 @@ public class TictactoeGameLoop {
         return gameSize;
     }
 
+    //Creating a new round
     public void startNewRound(TictactoeBoard tictactoeBoard){
         System.out.println("Type '1' to create 3x3 board, '2' to create 10x10 board: ");
         gameSize = tictactoeInput.gameSizeSelection(tictactoeBoard);
     }
 
+    //Game menu with game rules selection
     public void gameMenu(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue){
         System.out.println("Type '1' to create 3x3 board, '2' to create 10x10 board: ");
         gameSize = tictactoeInput.gameSizeSelection(tictactoeBoard);
@@ -73,51 +73,24 @@ public class TictactoeGameLoop {
         tictactoeInput.playersInitialization(this, playerQueue);
     }
 
-    public void playerVsPlayerLoop(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue){
-        while (true) {//Game loop player1 vs. player2 with checking if any player won the game
+    //Game loop for PvP match
+    public void playLoop(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue){//Game loop player1 vs. player2 with checking if any player won the game
+        boolean continueGame = true;
+        while(continueGame){
             System.out.println("Turn " + (turnCount + 1));
-
-            //Player 1 turn
-            if (logic.playerTurn(tictactoeBoard, gameSize, tictactoeInput, playerQueue)){
-                turnCount++;
+            for (int playerID = 0; playerID < playerQueue.getPlayerQueue().size(); playerID++) {
+                if(logic.playerTurn(tictactoeBoard, gameSize, tictactoeInput, playerQueue, playerID, gameType)) {
+                    turnCount++;
+                } else {
+                    continueGame = false;
+                    break;
+                }
                 if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
                     tictactoeBoard.printBoard();
                     System.out.println("Draw");
+                    continueGame = false;
                     break;
                 }
-            } else {
-                break;
-            }
-        }
-    }
-
-    public void playerVsAiLoop(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue){
-        while (true) {
-            System.out.println("Turn " + (turnCount + 1));
-
-            //Player 1 turn
-            if (logic.playerTurn(tictactoeBoard, gameSize, tictactoeInput, playerQueue)){
-                turnCount++;
-                if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
-                    tictactoeBoard.printBoard();
-                    System.out.println("Draw");
-                    break;
-                }
-            } else {
-                break;
-            }
-            System.out.println("Turn " + (turnCount + 1));
-
-            //AI turn
-            if (logic.aiTurn(tictactoeBoard, gameSize, playerQueue)){
-                turnCount++;
-                if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
-                    tictactoeBoard.printBoard();
-                    System.out.println("Draw");
-                    break;
-                }
-            } else {
-                break;
             }
         }
     }
@@ -126,13 +99,14 @@ public class TictactoeGameLoop {
         gameMenu(tictactoeBoard, playerQueue);
 
         while (playerQueue.checkPlayerLives()){
-            if(gameType == 1){
-                playerVsPlayerLoop(tictactoeBoard, playerQueue);
-            } else {
-                playerVsAiLoop(tictactoeBoard, playerQueue);
+            playLoop(tictactoeBoard, playerQueue);
+            if(playerQueue.checkPlayerLives()){
+                turnCount = 0;
+                startNewRound(tictactoeBoard);
             }
-            turnCount = 0;
-            startNewRound(tictactoeBoard);
         }
+
+        System.out.println("Game over");
+        playerQueue.getAllPlayersScore();
     }
 }
