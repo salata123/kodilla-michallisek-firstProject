@@ -36,14 +36,14 @@ public class TictactoeInput {
     }
 
     //Player input for creating player objects with names
-    public void playersInitialization(TictactoeGameLoop gameLoop, TictactoePlayerQueue playerQueue){
+    public void playersInitialization(TictactoeGameLoop gameLoop, TictactoePlayerQueue playerQueue) {
         System.out.println("Please, provide name for Player 1: ");
         String playerName = scanner.next();
         TictactoePlayer player1 = new TictactoePlayer(playerIdCounter, playerName, gameLoop.getPlayer1Type(), gameLoop.getPlayer1Score(), gameLoop.getPlayer1Lives());
         playerQueue.addPlayer(player1);
         playerIdCounter++;
 
-        if(gameLoop.getGameType() == 1){
+        if(gameLoop.getGameType() == 1) {
             System.out.println("Please, provide name for Player 2: ");
             playerName = scanner.next();
             TictactoePlayer player2 = new TictactoePlayer(playerIdCounter, playerName, gameLoop.getPlayer2Type(), gameLoop.getPlayer2Score(), gameLoop.getPlayer2Lives());
@@ -57,34 +57,32 @@ public class TictactoeInput {
     }
 
     //Selection of a field on the board with an input validation
-    public void selection(TictactoeBoard tictactoeBoard){
+    public void selection(TictactoeBoard tictactoeBoard) {
         boolean validInput = false;
         while (!validInput) {
-            if (scanner.hasNextInt()) {
+            if (scanner.hasNextInt()){
                 x = scanner.nextInt() - 1;
                 y = scanner.nextInt() - 1;
-                if (x >= 0 && x < tictactoeBoard.getSizeX() && y >= 0 && y < tictactoeBoard.getSizeX()) {
+                if (x >= 0 && x < tictactoeBoard.getSize() && y >= 0 && y < tictactoeBoard.getSize()) {
                     validInput = true;
                 } else
-                    System.out.println("Invalid input! Please enter a number between 1 and " + tictactoeBoard.getSizeX());
+                    System.out.println("Invalid input! Please enter a number between 1 and " + tictactoeBoard.getSize());
             }
         }
     }
 
     //Selecting game size X by Y
-    public int gameSizeSelection(TictactoeBoard tictactoeBoard){
+    public int gameSizeSelection(TictactoeBoard tictactoeBoard) {
         boolean validInput = false;
-        while (!validInput) {
+        while (!validInput){
             if (scanner.hasNextInt()) {
                 gameSize = scanner.nextInt();
                 if (gameSize == 1) {
-                    tictactoeBoard.setSizeX(3);
-                    tictactoeBoard.setSizeY(3);
+                    tictactoeBoard.setSize(3);
                     tictactoeBoard.initializeBoard();
                     validInput = true;
                 }else if (gameSize == 2) {
-                    tictactoeBoard.setSizeX(10);
-                    tictactoeBoard.setSizeY(10);
+                    tictactoeBoard.setSize(10);
                     tictactoeBoard.initializeBoard();
                     validInput = true;
                 } else {
@@ -97,7 +95,7 @@ public class TictactoeInput {
     }
 
     //Updating the board with player board coordinate input
-    public void playerFieldChoice (TictactoeBoard tictactoeBoard, String type) {
+    public void playerFieldChoice(TictactoeBoard tictactoeBoard, String type) {
         while (true) {
             System.out.println("Select a column and a row: ");
             selection(tictactoeBoard);

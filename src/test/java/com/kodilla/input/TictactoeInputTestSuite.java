@@ -102,8 +102,7 @@ public class TictactoeInputTestSuite {
 
         int expectedResult = 3;
 
-        assertEquals(expectedResult, tictactoeBoard.getSizeX());
-        assertEquals(expectedResult, tictactoeBoard.getSizeY());
+        assertEquals(expectedResult, tictactoeBoard.getSize());
     }
 
     @Test
@@ -122,7 +121,6 @@ public class TictactoeInputTestSuite {
 
         int expectedResult = 10;
 
-        assertEquals(expectedResult, tictactoeBoard.getSizeX());
-        assertEquals(expectedResult, tictactoeBoard.getSizeY());
+        assertEquals(expectedResult, tictactoeBoard.getSize());
     }
 }

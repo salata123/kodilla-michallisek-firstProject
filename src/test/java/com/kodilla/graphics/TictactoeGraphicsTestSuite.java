@@ -13,8 +13,8 @@ public class TictactoeGraphicsTestSuite {
         tictactoeBoard.initializeBoard();
 
         String expectedField = "| |";
-        for (int i = 0; i < tictactoeBoard.getSizeX(); i++){
-            for (int j = 0; j < tictactoeBoard.getSizeY(); j++){
+        for (int i = 0; i < tictactoeBoard.getSize(); i++){
+            for (int j = 0; j < tictactoeBoard.getSize(); j++){
                 assertEquals(expectedField, tictactoeBoard.getBoard()[i][j]);
             }
         }

@@ -52,13 +52,13 @@ public class TictactoeGameLoop {
     }
 
     //Creating a new round
-    public void startNewRound(TictactoeBoard tictactoeBoard){
+    public void startNewRound(TictactoeBoard tictactoeBoard) {
         System.out.println("Type '1' to create 3x3 board, '2' to create 10x10 board: ");
         gameSize = tictactoeInput.gameSizeSelection(tictactoeBoard);
     }
 
     //Game menu with game rules selection
-    public void gameMenu(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue){
+    public void gameMenu(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue) {
         System.out.println("Type '1' to create 3x3 board, '2' to create 10x10 board: ");
         gameSize = tictactoeInput.gameSizeSelection(tictactoeBoard);
 
@@ -74,7 +74,7 @@ public class TictactoeGameLoop {
     }
 
     //Game loop for PvP match
-    public void playLoop(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue){//Game loop player1 vs. player2 with checking if any player won the game
+    public void playLoop(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue) {//Game loop player1 vs. player2 with checking if any player won the game
         boolean continueGame = true;
         while(continueGame){
             System.out.println("Turn " + (turnCount + 1));
@@ -85,7 +85,7 @@ public class TictactoeGameLoop {
                     continueGame = false;
                     break;
                 }
-                if (turnCount >= (tictactoeBoard.getSizeX() * tictactoeBoard.getSizeY())) {
+                if (turnCount >= (tictactoeBoard.getSize() * tictactoeBoard.getSize())) {
                     tictactoeBoard.printBoard();
                     System.out.println("Draw");
                     continueGame = false;
@@ -95,7 +95,7 @@ public class TictactoeGameLoop {
         }
     }
 
-    public void run(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue){
+    public void run(TictactoeBoard tictactoeBoard, TictactoePlayerQueue playerQueue) {
         gameMenu(tictactoeBoard, playerQueue);
 
         while (playerQueue.checkPlayerLives()){

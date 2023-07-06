@@ -10,7 +10,7 @@ public class TictactoePlayerQueue {
         playerQueue.add(player);
     }
 
-    public TictactoePlayer getCurrentPlayer (int index){
+    public TictactoePlayer getCurrentPlayer (int index) {
         for (TictactoePlayer player : playerQueue) {
             if (player.getPlayerID() == index) {
                 return player;
@@ -20,7 +20,7 @@ public class TictactoePlayerQueue {
         return null;
     }
 
-    public String getCurrentPlayerName (int index){
+    public String getCurrentPlayerName (int index) {
         for (TictactoePlayer player : playerQueue) {
             if (player.getPlayerID() == index) {
                 return player.getPlayerName();
@@ -34,7 +34,7 @@ public class TictactoePlayerQueue {
         playerQueue.remove(index);
     }
 
-    public String getCurrentPlayerSymbol(int index){
+    public String getCurrentPlayerSymbol(int index) {
         for (TictactoePlayer player : playerQueue) {
             if (player.getPlayerID() == index) {
                 return player.getPlayerSymbol();
@@ -48,7 +48,7 @@ public class TictactoePlayerQueue {
         return playerQueue;
     }
 
-    public void addCurrentPlayerToWaitingList(int index){
+    public void addCurrentPlayerToWaitingList(int index) {
         for (TictactoePlayer player : playerQueue) {
             if (player.getPlayerID() == index) {
                 waitingList.add(player);
@@ -60,14 +60,14 @@ public class TictactoePlayerQueue {
         playerQueue.addAll(waitingList);
     }
 
-    public void getAllPlayersLives(){
-        for(TictactoePlayer player : getPlayerQueue()){
+    public void getAllPlayersLives() {
+        for(TictactoePlayer player : getPlayerQueue()) {
             System.out.println(player.getPlayerName() + " has " + player.getPlayerLives() + " lives");
         }
     }
 
-    public boolean checkPlayerLives(){
-        for(TictactoePlayer player : getPlayerQueue()){
+    public boolean checkPlayerLives() {
+        for(TictactoePlayer player : getPlayerQueue()) {
             if (player.getPlayerLives() == 0){
                 return false;
             }
@@ -75,13 +75,13 @@ public class TictactoePlayerQueue {
         return true;
     }
 
-    public void getAllPlayersScore(){
-        for(TictactoePlayer player : getPlayerQueue()){
+    public void getAllPlayersScore() {
+        for(TictactoePlayer player : getPlayerQueue()) {
             System.out.println(player.getPlayerName() + " has " + player.getPlayerScore() + " points");
         }
     }
 
-    public int getCurrentPlayerLives(int index){
+    public int getCurrentPlayerLives(int index) {
         for (TictactoePlayer player : playerQueue) {
             if (player.getPlayerID() == index) {
                 return player.getPlayerLives();

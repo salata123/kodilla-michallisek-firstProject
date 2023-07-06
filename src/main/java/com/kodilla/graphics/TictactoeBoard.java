@@ -3,8 +3,7 @@ package com.kodilla.graphics;
 import java.util.Arrays;
 
 public class TictactoeBoard {
-    private int sizeX = 3;
-    private int sizeY = 3;
+    private int size = 3;
     private int gameType = 1;
     private String[][] board;
     private final char choiceEmpty = ' ';
@@ -15,38 +14,32 @@ public class TictactoeBoard {
     public String[][] getBoard() {
         return board;
     }
-    public void printBoard(){
-        for (int i = 0; i < sizeX; i++){
-            for (int j = 0; j < sizeY; j++){
+    public void printBoard() {
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
                 System.out.print(board[i][j]);
             }
             System.out.println();
         }
     }
 
-    public void setSizeX(int sizeX) {
-        this.sizeX = sizeX;
+    public void setSize(int size) {
+        this.size = size;
     }
 
-    public void setSizeY(int sizeY) {
-        this.sizeY = sizeY;
+
+    public int getSize() {
+        return size;
     }
 
-    public int getSizeX() {
-        return sizeX;
-    }
-
-    public int getSizeY() {
-        return sizeY;
-    }
 
     //Board creating method
-    public String[][] initializeBoard(){
+    public String[][] initializeBoard() {
         System.out.println("Welcome to the TicTacToe game");
-        board = new String[sizeX][sizeY];
+        board = new String[size][size];
 
-        for (int i = 0; i < sizeX; i++){
-            for (int j = 0; j < sizeY; j++){
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
                 board[i][j] = field;
             }
         }
@@ -54,7 +47,7 @@ public class TictactoeBoard {
     }
 
     //Board updating method after player input
-    public String[][] updateBoard(int x, int y, String type){
+    public String[][] updateBoard(int x, int y, String type) {
         board[x][y] = type;
         return board;
     }
@@ -62,8 +55,7 @@ public class TictactoeBoard {
     @Override
     public String toString() {
         return "Board{" +
-                "sizeX=" + sizeX +
-                ", sizeY=" + sizeY +
+                "sizeX=" + size +
                 ", board=" + Arrays.toString(board) +
                 ", choiceEmpty=" + choiceEmpty +
                 ", choiceX=" + choiceX +

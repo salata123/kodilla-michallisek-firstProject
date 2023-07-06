@@ -11,15 +11,15 @@ public class TictactoeAI {
     private Random random = new Random();
 
     //Random AI field selection
-    public void aiFieldSelection(TictactoeBoard tictactoeBoard, String type, TictactoeLogic logic){
+    public void aiFieldSelection(TictactoeBoard tictactoeBoard, String type, TictactoeLogic logic) {
         while (true) {
-            x = random.nextInt(tictactoeBoard.getSizeX());
+            x = random.nextInt(tictactoeBoard.getSize());
             System.out.println("AI column choice: " + (x + 1));
 
-            y = random.nextInt(tictactoeBoard.getSizeY());
+            y = random.nextInt(tictactoeBoard.getSize());
             System.out.println("AI row choice: " + (y + 1));
 
-            //Checking if a field wanted by a AI is empty
+            //Checking if a field wanted by AI is empty
             if (logic.isFieldEmptyAI(x, y, tictactoeBoard)) {
                 break;
             }

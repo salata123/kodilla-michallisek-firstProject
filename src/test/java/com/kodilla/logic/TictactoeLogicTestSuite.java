@@ -68,12 +68,9 @@ public class TictactoeLogicTestSuite {
         boolean expectedResult = true;
 
         //Setting bigger board
-        tictactoeBoardRows.setSizeX(10);
-        tictactoeBoardRows.setSizeY(10);
-        tictactoeBoardColumns.setSizeX(10);
-        tictactoeBoardColumns.setSizeY(10);
-        tictactoeBoardDiagonals.setSizeX(10);
-        tictactoeBoardDiagonals.setSizeY(10);
+        tictactoeBoardRows.setSize(10);
+        tictactoeBoardColumns.setSize(10);
+        tictactoeBoardDiagonals.setSize(10);
 
         tictactoeBoardRows.initializeBoard();
         tictactoeBoardColumns.initializeBoard();
@@ -166,12 +163,9 @@ public class TictactoeLogicTestSuite {
         boolean expectedResult = true;
 
         //Setting bigger board
-        tictactoeBoardRows.setSizeX(10);
-        tictactoeBoardRows.setSizeY(10);
-        tictactoeBoardColumns.setSizeX(10);
-        tictactoeBoardColumns.setSizeY(10);
-        tictactoeBoardDiagonals.setSizeX(10);
-        tictactoeBoardDiagonals.setSizeY(10);
+        tictactoeBoardRows.setSize(10);
+        tictactoeBoardColumns.setSize(10);
+        tictactoeBoardDiagonals.setSize(10);
 
         tictactoeBoardRows.initializeBoard();
         tictactoeBoardColumns.initializeBoard();
