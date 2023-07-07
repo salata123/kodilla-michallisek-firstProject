@@ -11,8 +11,8 @@ public class TictactoeGameLoop {
     private TictactoeInput tictactoeInput = new TictactoeInput();
     private String player1Type = "|X|";
     private String player2Type = "|O|";
-    private int gameType;
-    private int gameSize;
+    private int gameType = 0;
+    private int gameSize = 0;
     private Scanner scanner = new Scanner(System.in);
     private int turnCount = 0;
     private int player1Score = 0;

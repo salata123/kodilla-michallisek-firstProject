@@ -3,11 +3,11 @@ package com.kodilla.logic;
 import java.util.Objects;
 
 public class TictactoePlayer {
-    private int playerID;
-    private String playerName;
-    private String playerSymbol;
-    private int playerScore;
-    private int playerLives;
+    private int playerID = 0;
+    private String playerName = "";
+    private String playerSymbol = "";
+    private int playerScore = 0;
+    private int playerLives = 0;
 
     public TictactoePlayer(int playerID, String playerName, String playerSymbol, int playerScore, int playerLives) {
         this.playerID = playerID;

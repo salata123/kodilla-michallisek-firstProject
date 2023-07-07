@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class TictactoeBoard {
     private int size = 3;
-    private int gameType = 1;
     private String[][] board;
     private final char choiceEmpty = ' ';
     private final char choiceX = 'X';
