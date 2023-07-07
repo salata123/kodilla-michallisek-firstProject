@@ -6,12 +6,12 @@ import com.kodilla.logic.TictactoeLogic;
 import java.util.Random;
 
 public class TictactoeAI {
-    private int x;
-    private int y;
     private Random random = new Random();
 
     //Random AI field selection
     public void aiFieldSelection(TictactoeBoard tictactoeBoard, String type, TictactoeLogic logic) {
+        int x = 0;
+        int y = 0;
         while (true) {
             x = random.nextInt(tictactoeBoard.getSize());
             System.out.println("AI column choice: " + (x + 1));
